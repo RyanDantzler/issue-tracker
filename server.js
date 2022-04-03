@@ -4,8 +4,9 @@ const express     = require('express');
 const bodyParser  = require('body-parser');
 const expect      = require('chai').expect;
 
-const myDB              = require('./connection');
-const apiRoutes         = require('./routes/api.js');
+const myDB        = require('./connection');
+const apiRoutes   = require('./routes/api.js');
+const runner      = require('./test-runner');
 
 let app = express();
 
@@ -58,7 +59,7 @@ myDB(async client => {
   
 }).catch((e) => {
   app.route('/').get((req, res) => {
-    res.send({ title: e, message: 'Unable to login' });
+    res.send({ error: e.message });
   });
 }); 
 
